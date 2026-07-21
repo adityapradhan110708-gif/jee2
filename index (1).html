@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEE Main 2026 — Result</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f0f0f0; min-height: 100vh; }
+.header { background: #1a2f5e; color: white; padding: 12px 24px; text-align: center; }
+.header h1 { font-size: 15px; font-weight: 500; }
+.header p { font-size: 12px; color: #aac; margin-top: 2px; }
+.content { max-width: 560px; margin: 48px auto; padding: 0 16px; }
+.card { background: white; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); overflow: hidden; }
+.card-header { background: #1a2f5e; color: white; padding: 12px 20px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.card-body { padding: 28px 24px; }
+label { display: block; font-size: 14px; color: #555; margin-bottom: 8px; }
+label .cs { color: #e85; font-size: 13px; }
+input[type="text"] { width: 100%; padding: 10px 14px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; margin-bottom: 6px; }
+input:focus { outline: none; border-color: #1a2f5e; box-shadow: 0 0 0 2px rgba(26,47,94,0.15); }
+.captcha-row { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px; }
+.captcha-box { background: #1a2f5e; color: white; font-size: 22px; font-weight: 700; letter-spacing: 6px; padding: 10px 20px; border-radius: 6px; font-family: monospace; user-select: none; }
+.refresh { background: none; border: 1px solid #ccc; border-radius: 50%; width: 36px; height: 36px; font-size: 18px; cursor: pointer; }
+.submit { background: #2e7d32; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 15px; font-weight: 500; cursor: pointer; width: 100%; }
+.submit:hover { background: #1b5e20; }
+.error { color: #c62828; font-size: 13px; margin-bottom: 12px; display: none; }
+.result-page { display: none; background: #f0f0f0; min-height: 100vh; padding: 20px 0; }
+.result-header { background: #1a2f5e; color: white; padding: 12px 24px; text-align: center; margin-bottom: 20px; }
+.result-header h1 { font-size: 15px; font-weight: 500; }
+.result-header p { font-size: 12px; color: #aac; margin-top: 2px; }
+.result-img-wrap { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+.result-img-wrap img { width: 100%; border: 1px solid #ccc; box-shadow: 0 2px 12px rgba(0,0,0,0.15); background: white; display: block; }
+.print-btn { display: block; margin: 16px auto; padding: 10px 32px; background: #1a2f5e; color: white; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; }
+.print-btn:hover { background: #162548; }
+</style>
+</head>
+<body>
+
+<div id="captcha-section">
+  <div class="header">
+    <h1>Joint Entrance Examination (Main) — 2026</h1>
+    <p>NTA Score Verification Portal</p>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-header">🔒 View Result</div>
+      <div class="card-body">
+        <label>Enter CAPTCHA <span class="cs">(case sensitive)</span></label>
+        <input type="text" id="inp" placeholder="Type the CAPTCHA code" autocomplete="off" onkeydown="if(event.key==='Enter')verify()" />
+        <div class="error" id="err">✗ Incorrect CAPTCHA. Please try again.</div>
+        <label>CAPTCHA :</label>
+        <div class="captcha-row">
+          <div class="captcha-box" id="cap"></div>
+          <button class="refresh" onclick="refresh()" title="Refresh">↻</button>
+        </div>
+        <button class="submit" onclick="verify()">SUBMIT</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="result-page" id="result-section">
+  <div class="result-header">
+    <h1>Joint Entrance Examination (Main) — 2026 Session 2</h1>
+    <p>NTA Score: Paper 1 (B.E./B.Tech.) — Verified Result</p>
+  </div>
+  <div class="result-img-wrap">
+    <img src="https://adityapradhan110708-gif.github.io/jee2/finalscorecardneedtopresent_page-0001.jpg" alt="JEE Main 2026 Scorecard" />
+    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+</div>
+
+<script>
+const ch='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+let cur='';
+function gen(){let s='';for(let i=0;i<6;i++)s+=ch[Math.floor(Math.random()*ch.length)];return s;}
+function refresh(){cur=gen();document.getElementById('cap').textContent=cur;document.getElementById('inp').value='';document.getElementById('err').style.display='none';}
+function verify(){
+  const v=document.getElementById('inp').value.trim();
+  if(v===cur){
+    document.getElementById('captcha-section').style.display='none';
+    document.getElementById('result-section').style.display='block';
+    window.scrollTo(0,0);
+  }else{
+    document.getElementById('err').style.display='block';
+    refresh();
+  }
+}
+refresh();
+</script>
+</body>
+</html>
